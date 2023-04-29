@@ -1,18 +1,24 @@
-// pra dizer ao stencil que essa classe deve se transformar em um web component, devemos adicionar algo chamado de "decorador"
-// decorators começam com @ e é um recurso do typescript, e precisam ser importados pois o typescript é uma linguagem super tipada
+import { Component, h, Prop } from '@stencil/core';
 
-import { Component, h } from '@stencil/core';
-
-@Component({ // executamos decorators como se fosse uma função // precisamos passar uma configuração de objeto nesse decorator // configuramos como esse componente pode ser usado e como vai funcionar
-  tag: 'wj-side-drawer' // nome da tag nosso componente
+@Component({ 
+  tag: 'wj-side-drawer', 
+  styleUrl: './side-drawer.css',
+  shadow: true 
 }) 
 
-export class SideDrawer { // typescript exige o export, se não, não funciona
-  render () { // método que o stencil vai executar pra analisar a DOM, é necessário ter
-    return ( // não vai funcionar se tivermos uma tag sibling a essa div, detemos ter apenas um elemento raiz
-      <div>
-        <h1>The Side Drawer Ho Ho</h1>
-      </div>
+export class SideDrawer { 
+  @Prop({ reflect: true }) title: string; // agora o Stencil vai observar atributos com o nome de title no nosso componente e se setarmos ou mudarmos como um atributo, ou se setarmos diretamente e programaticamente o título de fora do javascript, então o Stencil vai detectar essa mudaça e isso vai automaticamente reexecutar o método render de uma maneira muito eficiente, então não recarregará toda a DOM
+ 
+  render () { 
+    return (
+      <aside>
+        <header>
+          <h1>{this.title}</h1>
+        </header>
+        <main>
+          <slot></slot>
+        </main>
+      </aside>
     );
   }
 }

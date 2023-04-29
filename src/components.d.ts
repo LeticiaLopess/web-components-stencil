@@ -21,6 +21,7 @@ export namespace Components {
         "middle": string;
     }
     interface WjSideDrawer {
+        "title": string;
     }
 }
 declare global {
@@ -57,6 +58,7 @@ declare namespace LocalJSX {
         "middle"?: string;
     }
     interface WjSideDrawer {
+        "title"?: string;
     }
     interface IntrinsicElements {
         "my-component": MyComponent;
