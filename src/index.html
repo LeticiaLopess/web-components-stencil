@@ -52,8 +52,9 @@
       const sideDrawerButton = document.querySelector('#side-drawer-btn')
       const sideDrawer = document.querySelector('wj-side-drawer');
       sideDrawerButton.addEventListener("click", () => {
-        if (!sideDrawer.open) { // se tem a propriedade 'open', somente se não estiver aberto eu vou tentar abrir, right? right!
-          sideDrawer.open = true;
+        if (!sideDrawer.opened) { // se tem a propriedade 'opened', somente se não estiver aberto eu vou tentar abrir, right? right!
+          //sideDrawer.open = true;
+          sideDrawer.open(); // também posso abrir por métodos criados
         }
       })
       setTimeout(() => {

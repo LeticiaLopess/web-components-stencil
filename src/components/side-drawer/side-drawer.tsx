@@ -1,4 +1,4 @@
-import { Component, h, Prop, State } from '@stencil/core';
+import { Component, h, Prop, State, Method } from '@stencil/core';
 
 @Component({ 
   tag: 'wj-side-drawer', 
@@ -9,14 +9,19 @@ import { Component, h, Prop, State } from '@stencil/core';
 export class SideDrawer { 
   @State() showContactInfo = false;
   @Prop({ reflect: true }) title: string; // agora o Stencil vai observar atributos com o nome de title no nosso componente e se setarmos ou mudarmos como um atributo, ou se setarmos diretamente e programaticamente o título de fora do javascript, então o Stencil vai detectar essa mudaça e isso vai automaticamente reexecutar o método render de uma maneira muito eficiente, então não recarregará toda a DOM
-  @Prop({ reflect: true, mutable: true }) open: boolean; // @Props definidas aqui são imutáveis, não podemos mudar dentro do componente. No html ou manualmente podemos, a não ser que coloquemos 'mutable: true'
+  @Prop({ reflect: true, mutable: true }) opened: boolean; // @Props definidas aqui são imutáveis, não podemos mudar dentro do componente. No html ou manualmente podemos, a não ser que coloquemos 'mutable: true'
 
   onCloseDrawer() {
-    this.open = false;
+    this.opened = false;
   }
 
   onContentChange(content: string) {
     this.showContactInfo = content === 'contact' ? true : false; /* quero checar que o content é igual a contato -> se o conteúdo for igual a contato, e o resultado será true [= não é =, = você atribui, === está comparando] */ 
+  }
+
+  @Method() // esse method adicionado aqui faz com que o método que vou criar a seguir seja um método disponível publicamente [corrige o erro de: 'open() is not a function'], não esqueça de importar esse Method 
+  open() {
+    this.opened = true;
   }
 
   render () { 
